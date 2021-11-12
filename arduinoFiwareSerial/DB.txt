@@ -1,0 +1,129 @@
+# Creacion de la entidad
+
+http://147.182.194.244:1026/v2/entities
+
+Header: 'Content-Type: application/json'
+
+{
+    "id": "utn:ngsi-Id:Boyadarmedebaja:001",
+    "type": "Boya"
+}
+
+# Registro de sensor de Tº del agua
+
+http://147.182.194.244:4041/iot/devices
+
+Header: 'fiware-service: openiot'
+Header: 'fiware-servicepath: /'
+Header: 'Content-Type: application/json'
+
+{
+    "devices":
+    [
+        {
+            "device_id": "TempAgua",
+            "entity_name": "utn:ngsi-Id:TempAgua:001",
+            "entity_type": "Sensor",
+            "timezone": "America/BuenosAires",
+            "attributes":[
+                {"object_id": "t", "name":"measure", "type":"Integer"}
+            ],
+            "static_atributtes":[
+                {"name":"refStore", "type":"Relationship", "value": "utn:ngsi-Id:Boyadarmedebaja:001"}
+            ]
+        }
+    ]
+}
+
+# Registro de sensor de radiacion UV
+
+http://147.182.194.244:4041/iot/devices
+
+Header: 'fiware-service: openiot'
+Header: 'fiware-servicepath: /'
+Header: 'Content-Type: application/json'
+
+{
+    "devices":
+    [
+        {
+            "device_id": "RadUV",
+            "entity_name": "utn:ngsi-Id:RadUV:001",
+            "entity_type": "Sensor",
+            "timezone": "America/BuenosAires",
+            "attributes":[
+                {"object_id": "r", "name":"measure", "type":"Integer"}
+            ],
+            "static_atributtes":[
+                {"name":"refStore", "type":"Relationship", "value": "utn:ngsi-Id:Boyadarmedebaja:001"}
+            ]
+        }
+    ]
+}
+
+# Suscripcion a Quantum Leap para la permanencia de datos
+
+http://147.182.194.244:1026/v2/subscriptions/
+
+**TempAgua**
+{
+    "description": "Notify Quantum Leap about TempAgua.*",
+    "subject": {
+        "entities": [
+            {
+                "idPattern": "TempAgua.*"
+            }
+        ],
+        "condition": {
+            "attrs": [
+                "measure"
+            ]
+        }
+    },
+    "notification": {
+        "http": {
+            "url": "http://quantum-leap:8668/v2/notify"
+        },
+        "attrs": [
+            "measure"
+        ],
+        "metadata": [
+            "dateCreated",
+            "dateModified"
+        ]
+    }
+}
+
+**RadUV**
+{
+    "description": "Notify Quantum Leap about RadUV.*",
+    "subject": {
+        "entities": [
+            {
+                "idPattern": "RadUV.*"
+            }
+        ],
+        "condition": {
+            "attrs": [
+                "measure"
+            ]
+        }
+    },
+    "notification": {
+        "http": {
+            "url": "http://quantum-leap:8668/v2/notify"
+        },
+        "attrs": [
+            "measure"
+        ],
+        "metadata": [
+            "dateCreated",
+            "dateModified"
+        ]
+    }
+}
+
+# Enviar una medicion al sensor TempAgua
+**RadUv**
+	http://147.182.194.244:7896/iot/d?k=2tggokgpepnvsb2uv4s40d59oc&i=RadUv001
+	t|1212
