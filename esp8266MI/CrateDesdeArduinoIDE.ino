@@ -5,27 +5,51 @@
 #include <DNSServer.h>
 #include <ESP8266WebServer.h>
 #include <WiFiManager.h>
+#include <WiFiClient.h>
+#include <HTTPClient.h>
 
-void crearSensores() {
-  http.begin(TEMPERATURA);
+// crear entidad de sensores en crate
+
+HTTPClient http;
+WiFiClient client;
+
+void creaEntidad() {
+  String host = "http://147.182.194.244:1026/v2/entities";
+  String postData = '{
+                        "id": "utn:ngsi-Id:Boyadarmedebaja:001",
+                        "type": "Boya"
+                      }';
+  String payload;
+  int httpCode;              
+
+  http.begin(host);
+  delay(1000);
+
   http.addHeader("Content-Type", "application/json");
-  http.POST("{\"name\":\"StempMaceta\",\"type\":\"temperature\",\"unit\":\"C\"}");
-  http.end();
-  http.begin(HUMEDAD);
-  http.addHeader("Content-Type", "application/json");
-  http.POST("{\"name\":\"ShumMaceta\",\"type\":\"humidity\",\"unit\":\"%\"}");
-  http.end();
-  http.begin(LUZ);
-  http.addHeader("Content-Type", "application/json");
-  http.POST("{\"name\":\"SluzMaceta\",\"type\":\"light\",\"unit\":\"%\"}");
+  httpCode = http.POST(postData);
+  payload = http.getString();
+  Serial.println(httpCode);
+  Serial.println(payload);
+
   http.end();
 }
+
+
 
 void setup() {
-  // Inicializacion de la placa
-    Serial.begin(115200);
+  // Conectar a wifi con WifiManager
+  WiFiManager wifiManager;
+  wifiManager.resetSettings();
+  wifiManager.autoConnect();
+  // Obtener parametro WiFiClient de WifiManager
+  client = wifiManager.getWiFiClient();
+
+
+  Serial.begin(115200);
+  inicializar_Wifi();
+  creaEntidad();
 }
 
-void loop(){
-
+void loop() {
+  
 }

@@ -125,5 +125,5 @@ http://147.182.194.244:1026/v2/subscriptions/
 
 # Enviar una medicion al sensor TempAgua
 **RadUv**
-	http://147.182.194.244:7896/iot/d?k=2tggokgpepnvsb2uv4s40d59oc&i=RadUv001
+	http://147.182.194.244:7896/iot/d?k=2tggokgpepnvsb2uv4s40d59oc&i=RadUV001
 	t|1212
