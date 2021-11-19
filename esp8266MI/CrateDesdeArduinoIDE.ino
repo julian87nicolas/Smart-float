@@ -32,6 +32,7 @@ void creaEntidad() {
   Serial.println(payload);
 
   http.end();
+  
 }
 
 
@@ -51,5 +52,11 @@ void setup() {
 }
 
 void loop() {
+  // Pedir valor por puerto serie y bloquear hasta que se reciba un valor
+  int valor = 0;
+  while (valor == 0) {
+    valor = Serial.parseInt();
+  }
   
+
 }
