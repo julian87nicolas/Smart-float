@@ -127,7 +127,7 @@ void enviarDato(int valor, int sensor){
   int httpCode;
   
   Serial.print("Posteando: ");
-  Serial.println(data);
+  
   
   if(sensor == 1){
     http4.begin(cliente, RadUV);
@@ -137,36 +137,7 @@ void enviarDato(int valor, int sensor){
     http4.begin(cliente, TempAgua);
     data = String("t|") + String(valor);
   }
-
+  Serial.println(data);
   httpCode = http4.POST(data);
   
-}
-
-void setup() {
-  WiFiManager wifi;
-  //wifi.resetSettings();
-  wifi.autoConnect("BOYA");
-  
-  Serial.begin(115200);
-  creaEntidad();
-
-  registraSensores();
-
-  quantumLeap();
-}
-
-void loop() {
-  int valor = 0, seleccion = 0;
-  Serial.print("Ingrese un valor a enviar");
-  while(valor == 0){
-    valor = Serial.parseInt();
-  }
-  Serial.println("Seleccione un sensor:");
-  Serial.println("1 - RadUv");
-  Serial.println("2 - TempAgua");
-  while(seleccion != 1 && seleccion != 2){
-    seleccion = Serial.parseInt();
-  } 
-  
-  enviarDato(valor, seleccion);
 }

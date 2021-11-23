@@ -1,7 +1,7 @@
 #include <DallasTemperature.h>
 #include <OneWire.h>
 
-const int pinDatosDQ = 4;
+const int pinDatosDQ = 2;
 
 OneWire oneWireObjeto(pinDatosDQ);
 DallasTemperature sensorDS18B20(&oneWireObjeto);
