@@ -1,12 +1,8 @@
-// Librerias de wifi esp8266
+
 #include <ESP8266WiFi.h>
 
-// WifiManager
-#include <DNSServer.h>
-#include <ESP8266WebServer.h>
 #include <WiFiManager.h>
 #include <ESP8266HTTPClient.h>
-#include <StreamString.h>
 #include "Sensores.h" // json de creacion de los sensores de temperatura y radiacion UV, ubicados en Sensores.h
 
 
@@ -15,6 +11,8 @@ extern char *radUV;
 extern char *entity;
 extern char *suscTemp;
 extern char *suscRadUV;
+
+int repeat[] ={0,0} ;
 
 HTTPClient http1, http2, http3, http4;
 WiFiClient cliente;
@@ -59,6 +57,13 @@ void registraSensores(){
   Serial.print("Respuesta del servidor al crear sensor de Temperatura: ");
   Serial.println(payload);
 
+  if(payload.indexOf("DUPLICATE_DEVICE_ID") > 0){ // Verifica si el servidor devuelve error
+    repeat[0] = 1;
+    Serial.print("Sensor TempAgua repetido. ");
+    Serial.print(repeat[0]);
+    Serial.println(repeat[1]);
+  }
+
   http2.addHeader("fiware-service", "openiot");
   http2.addHeader("fiware-servicepath", "/");
   http2.addHeader("Content-Type", "application/json");
@@ -67,6 +72,13 @@ void registraSensores(){
   Serial.println("Creando Sensor 2");
   Serial.print("Respuesta del servidor al crear sensor de Radiacion UV: ");
   Serial.println(payload);
+  
+  if(payload.indexOf("DUPLICATE_DEVICE_ID") > 0){ // Verifica si el servidor devuelve error
+    repeat[1] = 1;
+    Serial.print("Sensor RadUV repetido. ");
+    Serial.print(repeat[0]);
+    Serial.println(repeat[1]);    
+  }
 
   http2.end();
   Serial.println("Fin  de la creacion de sensores");
@@ -78,40 +90,46 @@ void quantumLeap(){
   int httpCode;
   String payload;
   http3.begin(cliente, host);
-    
-  http3.addHeader("fiware-service", "openiot");
-  http3.addHeader("fiware-servicepath", "/");
-  http3.addHeader("Content-Type", "application/json");
-
-  httpCode = http3.POST(suscTemp);
-  Serial.println("Suscripcion a quantum leap Temperatura.");
-  Serial.print("Respuesta del servidor: ");
-  payload = http3.getString();
-  Serial.println(payload);
-
-  http3.addHeader("fiware-service", "openiot");
-  http3.addHeader("fiware-servicepath", "/");
-  http3.addHeader("Content-Type", "application/json");
-  httpCode = http3.POST(suscRadUV);
-  Serial.println("Suscripcion a quantum leap Radiacion UV.");
-  Serial.print("Respuesta del servidor: ");
-  payload = http3.getString();
-  Serial.println(payload);
+  
+  if(repeat[0] == 0){
+    http3.addHeader("fiware-service", "openiot");
+    http3.addHeader("fiware-servicepath", "/");
+    http3.addHeader("Content-Type", "application/json");
+  
+    httpCode = http3.POST(suscTemp);
+    Serial.println("Suscripcion a quantum leap Temperatura.");
+    Serial.print("Respuesta del servidor: ");
+    payload = http3.getString();
+    Serial.println(payload);
+  }
+  else{
+    Serial.println("Sensor TempAgua repetido, suscripcion a Quantum Leap abortada.");
+  }
+  if(repeat[1] == 0){
+    http3.addHeader("fiware-service", "openiot");
+    http3.addHeader("fiware-servicepath", "/");
+    http3.addHeader("Content-Type", "application/json");
+    httpCode = http3.POST(suscRadUV);
+    Serial.println("Suscripcion a quantum leap Radiacion UV.");
+    Serial.print("Respuesta del servidor: ");
+    payload = http3.getString();
+    Serial.println(payload);
+  }
+  else{
+    Serial.println("Sensor RadUV repetido, suscripcion a Quantum Leap abortada.");
+  }
   
   http3.end();  
 }
 
 void enviarDato(int valor, int sensor){
   String RadUV = "http://147.182.194.244:7896/iot/d?k=2tggokgpepnvsb2uv4s40d59oc&i=RadUV";
-  String Temp = "http://147.182.194.244:7896/iot/d?k=2tggokgpepnvsb2uv4s40d59oc&i=TempAgua";
+  String TempAgua = "http://147.182.194.244:7896/iot/d?k=2tggokgpepnvsb2uv4s40d59oc&i=TempAgua";
   String data;
-  String seleccion[2] = ["TempAgua", "RadUV"];
   int httpCode;
   
   Serial.print("Posteando: ");
   Serial.println(data);
-  Serial.print("En el sensor: ");
-  Serial.println(seleccion[sensor]);
   
   if(sensor == 1){
     http4.begin(cliente, RadUV);
@@ -149,7 +167,7 @@ void loop() {
   Serial.println("Seleccione un sensor:");
   Serial.println("1 - RadUv");
   Serial.println("2 - TempAgua");
-  while(seleccion != 1 || seleccion !=2){
+  while(seleccion != 1 && seleccion != 2){
     seleccion = Serial.parseInt();
   } 
   

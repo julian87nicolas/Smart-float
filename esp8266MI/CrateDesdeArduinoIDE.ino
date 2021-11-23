@@ -14,6 +14,7 @@ HTTPClient http;
 WiFiClient client;
 
 void creaEntidad() {
+  int rep;
   String host = "http://147.182.194.244:1026/v2/entities";
   String postData = '{
                         "id": "utn:ngsi-Id:Boyadarmedebaja:001",
@@ -25,9 +26,17 @@ void creaEntidad() {
   http.begin(host);
   delay(1000);
 
+  //crear un arreglo de enteros con 3 elementos
+  int httpCodeArr[3];
+  httpCodeArr[0] = httpCodeArr[1] = httpCodeArr[2] = 0;
+
   http.addHeader("Content-Type", "application/json");
   httpCode = http.POST(postData);
   payload = http.getString();
+
+  // Si "payload" == "Error" igualar rep a 1
+
+
   Serial.println(httpCode);
   Serial.println(payload);
 
