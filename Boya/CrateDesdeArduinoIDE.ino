@@ -19,28 +19,27 @@ WiFiClient cliente;
 
 String ssid, pass;
 
-void creaEntidad() {
-  String host = "http://147.182.194.244:1026/v2/entities";
+void creaEntidad(String host) {
+  //String host = "http://147.182.194.244:1026/v2/entities";    // direccion entidad
   String payload;
   int httpCode;              
 
+  Serial.println("Creacion de entidad");
   http1.begin(cliente,host);
 
   http1.addHeader("Content-Type", "application/json");
   httpCode = http1.POST(entity);
-  payload = http1.getString();
-  //Serial.println(httpCode);
-  Serial.println("Entidad creada.");
+  payload = http1.getString();                                // respuesta del servidor al post
   Serial.print("Respuesta del servidor: ");
   Serial.println(payload);
 
-  http1.end();
+  http1.end();                                                // cierre de conexion http
 
   Serial.println("Fin  de la creacion de entidad");
 }
 
-void registraSensores(){
-  String host = "http://147.182.194.244:4041/iot/devices";
+void registraSensores(String host){
+  //String host = "http://147.182.194.244:4041/iot/devices";
   String payload;
   int httpCode;
 
@@ -58,8 +57,6 @@ void registraSensores(){
   if(payload.indexOf("DUPLICATE_DEVICE_ID") > 0){ // Verifica si el servidor devuelve error
     repeat[0] = 1;
     Serial.print("Sensor TempAgua repetido. ");
-    Serial.print(repeat[0]);
-    Serial.println(repeat[1]);
   }
 
   http2.addHeader("fiware-service", "openiot");
@@ -74,17 +71,15 @@ void registraSensores(){
   if(payload.indexOf("DUPLICATE_DEVICE_ID") > 0){ // Verifica si el servidor devuelve error
     repeat[1] = 1;
     Serial.print("Sensor RadUV repetido. ");
-    Serial.print(repeat[0]);
-    Serial.println(repeat[1]);    
   }
-
+  
   http2.end();
   Serial.println("Fin  de la creacion de sensores");
   
 }
 
-void quantumLeap(){
-  String host = "http://147.182.194.244:1026/v2/subscriptions/";
+void quantumLeap(String host){
+  //String host = "http://147.182.194.244:1026/v2/subscriptions/";
   int httpCode;
   String payload;
   http3.begin(cliente, host);
@@ -121,13 +116,13 @@ void quantumLeap(){
 }
 
 void enviarDato(int valor, int sensor){
+  // URL de cada sensor
   String RadUV = "http://147.182.194.244:7896/iot/d?k=2tggokgpepnvsb2uv4s40d59oc&i=RadUV";
   String TempAgua = "http://147.182.194.244:7896/iot/d?k=2tggokgpepnvsb2uv4s40d59oc&i=TempAgua";
   String data;
   int httpCode;
   
   Serial.print("Posteando: ");
-  
   
   if(sensor == 1){
     http4.begin(cliente, RadUV);
