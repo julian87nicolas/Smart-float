@@ -1,6 +1,7 @@
 #include <WiFiManager.h>
 #include <WiFiUdp.h>
 #include <NTPClient.h> //importamos la librería del cliente NTP
+
 #include <Servo.h>
 
 WiFiUDP ntpUDP; // cliente UDP para solicitar la hora
@@ -50,8 +51,7 @@ void loop() {
     Serial.println(hora_local(timeClient));
   }
   if( hora_local(timeClient) == "22:00:00" || hora_local(timeClient) == "22:00:01"){  // Se activa el servo por dos segundos a las 22 horas
-                                                                                      // las dos comparaciones son para asegurar que se cumpla
-                                                                                      // ya que el reloj online es impreciso.
+                                                                                      // las dos comparaciones son para asegurar que se cumpla                                                                                   // ya que el reloj online es impreciso.
     Serial.print("Abriendo compuerta de cloro, hora ");
     Serial.println(hora_local(timeClient));
     servoMotor.write(90);
