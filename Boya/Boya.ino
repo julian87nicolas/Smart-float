@@ -1,8 +1,9 @@
 #include <WiFiManager.h>
 #include <WiFiUdp.h>
 #include <NTPClient.h> //importamos la librería del cliente NTP
-
 #include <Servo.h>
+
+#define INTER_MED 1800000 // Intervalo de medicion cada 30 minutos (1800 segundos)
 
 WiFiUDP ntpUDP; // cliente UDP para solicitar la hora
 
@@ -14,6 +15,7 @@ extern char *sensorIP;
 extern char *suscIP;
 
 int paso = millis();
+
 void setup() {
   delay(2000);
   timeClient.begin();
@@ -39,7 +41,7 @@ void setup() {
 void loop() {
   int temp = temperatura(), rad = radiacion();
   String hora;
-  if( paso + 3000 <= millis()){  // Efectuando posteo de datos cada 30000 milisegundos (30 segundos)
+  if( paso + INTER_MED <= millis()){  // Efectuando posteo de datos cada 30000 milisegundos (30 segundos)
     Serial.print("Temperatura: ");
     Serial.println(temp);
     Serial.print("Radiacion UV: ");
@@ -59,6 +61,4 @@ void loop() {
     Serial.println("Cerrando compuerta.");
     servoMotor.write(0);
   }
- 
-  
 }
