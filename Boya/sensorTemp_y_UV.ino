@@ -12,8 +12,9 @@ int temperatura(){
 
 int radiacion(){
   int r = analogRead(A0);
+  int val = 0;
   if(r < 50){
-    return 0;
+    val = 0;
   }
   else{
     if(r < 227){
@@ -21,30 +22,30 @@ int radiacion(){
     }
     else{
       if(r < 318){
-        return 2;
+        val =  2;
       }
       else{
         if( r < 418){
-          return 3;
+          val =  3;
         }
         else{
           if(r > 503){
-            return 4;
+            val =  4;
           }
           else{
             if(r > 606){
-              return 5;
+              val =  5;
             }
             else{
               if( r > 696){
-                return 6;
+                val =  6;
               }
               else{
                 if(r > 795){
-                  return 7;
+                  val =  7;
                 }
                 else{
-                  return 8;
+                  val =  8;
                 }
               }
             }
@@ -53,4 +54,5 @@ int radiacion(){
       }
     }
   }
+  return val;
 }
