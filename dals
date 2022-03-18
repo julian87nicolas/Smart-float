@@ -1,0 +1,111 @@
+[33mcommit 8f51e703e9feeba43406e7e7fea0d20abd2af6f8[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: Julian <julian.camargo@alumnos.frm.utn.edu.ar>
+Date:   Fri Dec 10 16:38:40 2021 -0300
+
+    Fotos borradas
+
+[33mcommit 73bf14c955c5f7e1442c528ad7ae6bfd9e20c68f[m
+Author: Julian <julian.camargo@alumnos.frm.utn.edu.ar>
+Date:   Mon Dec 6 11:55:02 2021 -0300
+
+    Arreglo de los múltiples return en funcion del sensor UV
+
+[33mcommit cfc31ad4100a436e5ef33faa1aee001bc540fd7e[m
+Author: Julian <julian.camargo@alumnos.frm.utn.edu.ar>
+Date:   Tue Nov 30 13:34:48 2021 -0300
+
+    Ultimos cambios
+
+[33mcommit ce0f37a52a6838f8d5671e2b5659bba402c94c60[m
+Author: Julian <julian.camargo@alumnos.frm.utn.edu.ar>
+Date:   Tue Nov 30 12:31:12 2021 -0300
+
+    Cambios finales - (Correccion Bruno)
+
+[33mcommit a4e029ca90b0c1b5271b01b300172319476bce6b[m
+Author: Julian <julian.camargo@alumnos.frm.utn.edu.ar>
+Date:   Sun Nov 28 21:11:59 2021 -0300
+
+    Arreglado hora
+
+[33mcommit 2c538c4d45a10a6c12977b5632b326cb4f5c6419[m
+Author: Julian <julian.camargo@alumnos.frm.utn.edu.ar>
+Date:   Sun Nov 28 20:12:27 2021 -0300
+
+    Arreglado hora
+
+[33mcommit 7aec2239cf212217179285136dcf8cab0b8e6965[m
+Author: Julian <julian.camargo@alumnos.frm.utn.edu.ar>
+Date:   Sun Nov 28 20:10:01 2021 -0300
+
+    Arreglado hora
+
+[33mcommit f9d28d59da63b0719a0512ad26d9ce35db880151[m
+Author: Julian <julian.camargo@alumnos.frm.utn.edu.ar>
+Date:   Tue Nov 23 20:19:00 2021 -0300
+
+    Ultima con todo arreglado con HORA
+
+[33mcommit 757bafc40ba51f4228e5f41e9b96a9d2f5a3b641[m
+Author: Julian <julian.camargo@alumnos.frm.utn.edu.ar>
+Date:   Tue Nov 23 18:29:55 2021 -0300
+
+    Boya Terminada V1
+
+[33mcommit c7fcdf49a94aff91c8d3df13be73f4727bf4d25f[m
+Author: Julian <julian.camargo@alumnos.frm.utn.edu.ar>
+Date:   Tue Nov 23 11:51:06 2021 -0300
+
+    Ultima con todo arreglado
+
+[33mcommit 115417279928d70fe2cd23e69321075157decebb[m
+Author: Julian <julian.camargo@alumnos.frm.utn.edu.ar>
+Date:   Fri Nov 19 18:16:40 2021 -0300
+
+    Registro de entidad y sensores desde el mismo ESP, falta solucionar que no se suscriban mas de una vez
+
+[33mcommit 961148a4bd02fa810a4cc0d4d569811bf73cf880[m
+Merge: d5db6f0 15c4906
+Author: Julian <julian.camargo@alumnos.frm.utn.edu.ar>
+Date:   Fri Nov 19 18:15:55 2021 -0300
+
+    Merge branch 'main' of https://github.com/julian87nicolas/Interop
+
+[33mcommit d5db6f03f24757700dba2ccd3ad0a12adccf759f[m
+Author: Julian <julian.camargo@alumnos.frm.utn.edu.ar>
+Date:   Fri Nov 19 18:15:19 2021 -0300
+
+    Registro de entidad y sensores desde el mismo ESP, falta solucionar que no se suscriban mas de una vez
+
+[33mcommit 15c490675c0a4f31bf9beef4adc731c264886c07[m
+Author: Julian <julicmrgo@gmail.com>
+Date:   Fri Nov 12 18:42:59 2021 -0300
+
+    Segunda prueba commit
+
+[33mcommit 24a3e16c62c3ada98ddc8d7ad50391d80f8f3046[m
+Merge: d7634d6 7460c8e
+Author: Julian <julicmrgo@gmail.com>
+Date:   Fri Nov 12 18:40:25 2021 -0300
+
+    Merge branch 'main' of https://github.com/julian87nicolas/Interop into main
+    
+    Ni idea man
+
+[33mcommit 7460c8e8a41db0350ec66ad0fc833bce03123e4b[m
+Author: Julian <julian.camargo@alumnos.frm.utn.edu.ar>
+Date:   Fri Nov 12 17:52:10 2021 -0300
+
+    Cosas del gonza lope
+
+[33mcommit d7634d6f953109229895e87a60586fd70d3e4703[m
+Author: Julian <julicmrgo@gmail.com>
+Date:   Fri Nov 12 17:39:03 2021 -0300
+
+    prueba desde xubuntu
+
+[33mcommit 8ed51351f81469a394db56bea021aa6ad291e2b9[m
+Author: Julian <julian.camargo@alumnos.frm.utn.edu.ar>
+Date:   Fri Nov 12 16:42:05 2021 -0300
+
+    Primer commit
